@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CursoResource extends JsonResource
+class CourseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class CursoResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'identify' => $this->uuid,
             'nome' => $this->nome,
             'categoria' => $this->categoria,
             'subcategoria' => $this->subcategoria,

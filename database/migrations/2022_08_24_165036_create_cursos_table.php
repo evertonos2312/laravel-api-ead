@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cursos', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->integer('codigo');
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id();
+            $table->uuid();
             $table->string('nome');
-            $table->string('categoria')->nullable();
-            $table->string('subcategoria')->nullable();
+            $table->string('module')->nullable();
+            $table->string('submodule')->nullable();
             $table->string('tipo')->nullable();
             $table->boolean('destaque')->default(false);
             $table->boolean('especializacao')->default(false);
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cursos');
+        Schema::dropIfExists('courses');
     }
 };

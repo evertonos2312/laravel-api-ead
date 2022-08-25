@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Curso;
+use App\Models\Course;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,22 +16,15 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        $courses = [];
+        $json = file_get_contents(storage_path() . "/cursos.json");
+        $courses = json_decode($json,true);
 
-        if (($open = fopen(storage_path() . "/courses.csv", "r")) !== FALSE) {
-
-            while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
-                $courses[] = $data;
-            }
-
-            fclose($open);
-        }
         if(!empty($courses)){
             foreach ($courses as $course) {
-                Curso::create([
-                    'nome' => $course[0],
-                    'tipo' => $course[1],
-                    'id_mp' => $course[2]
+                Course::create([
+                    'nome' => $course['nome'],
+                    'tipo' => $course['tipo'],
+                    'id_mp' => $course['id_mp'] ?: NULL
                 ]);
             }
         }
