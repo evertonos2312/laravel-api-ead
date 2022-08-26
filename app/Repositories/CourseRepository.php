@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Course;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class CourseRepository
@@ -16,9 +17,11 @@ class CourseRepository
 
     public function getAllCourses()
     {
-            return $this->entity->get();
-//        return Cache::remember('courses', 900, function () {
-//        });
+        return Cache::remember('courses', 900, function () {
+            return $this->entity->withWhereHas('lessons', function($db) {
+                $db->whereDate('lessons.inicio', '>',  Carbon::now('America/Sao_Paulo'));
+            })->get();
+        });
     }
 
     public function createNewCourse(array $data)
@@ -26,9 +29,13 @@ class CourseRepository
         return $this->entity->create($data);
     }
 
-    public function getCourseByUuid(string $identify)
+    public function getCourseByUuid(string $identify, bool $loadRelationships = true)
     {
-        return $this->entity->where('uuid', $identify)->FirstOrFail();
+        $query =  $this->entity->where('uuid', $identify);
+        if($loadRelationships) {
+            $query->with('lessons');
+        }
+        return $query->firstOrFail();
     }
 
     public function deleteCourseByUuid(string $identify)

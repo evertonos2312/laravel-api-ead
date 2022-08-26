@@ -37,8 +37,8 @@ class SubmoduleController extends Controller
      */
     public function store(StoreUpdateSubmodule $request, $module)
     {
-        $module = $this->submoduleService->createNewSubmodule($request->validated());
-        return new SubmoduleResource($module);
+        $submodule = $this->submoduleService->createNewSubmodule($request->validated());
+        return new SubmoduleResource($submodule);
     }
 
     /**
@@ -49,8 +49,8 @@ class SubmoduleController extends Controller
      */
     public function show($module, $identify)
     {
-        $module = $this->submoduleService->getSubmoduleByModule($module, $identify);
-        return new SubmoduleResource($module);
+        $submodule = $this->submoduleService->getSubmoduleByModule($module, $identify);
+        return new SubmoduleResource($submodule);
     }
 
     /**

@@ -24,6 +24,7 @@ class CourseResource extends JsonResource
             'destaque' => $this->destaque,
             'id_mp' => $this->id_mp,
             'data' => Carbon::make($this->created_at)->format('Y-m-d'),
+            'turmas' => LessonResource::collection($this->whenLoaded('lessons'))
         ];
     }
 }

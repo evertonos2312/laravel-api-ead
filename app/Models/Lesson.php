@@ -6,21 +6,21 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
-class Course extends Model
+class Lesson extends Model
 {
     use HasFactory, SoftDeletes, UuidTrait;
 
     protected $fillable = [
-        'nome', 'categoria',
-        'subcategoria', 'tipo', 'destaque',
-        'especializacao', 'id_mp', 'usuario_modificado'
+        'nome', 'status',
+        'course_id', 'imagem', 'link',
+        'inicio', 'termino', 'max_cancelamento',
+        'id_mp', 'usuario_modificado'
     ];
 
-    public function lessons()
+    public function courses()
     {
-        return $this->hasMany(Lesson::class);
+        return $this->belongsTo(Course::class);
     }
+
 }
