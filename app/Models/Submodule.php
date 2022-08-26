@@ -16,5 +16,8 @@ class Submodule extends Model
         'id_mp', 'usuario_modificado'
     ];
 
-
+    public function modules()
+    {
+        return $this->belongsTo(Module::class);
+    }
 }

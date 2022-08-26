@@ -15,4 +15,9 @@ class Module extends Model
         'nome', 'status',
         'id_mp', 'usuario_modificado'
     ];
+
+    public function submodules()
+    {
+        return $this->hasMany(Submodule::class);
+    }
 }

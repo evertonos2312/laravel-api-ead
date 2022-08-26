@@ -13,7 +13,7 @@ class StoreUpdateSubmodule extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreUpdateSubmodule extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => ['required', 'min:3', 'max:255'],
+            'module' => ['required', 'exists:modules,uuid'],
+            'status' => ['nullable', 'boolean'],
+            'id_mp' => ['nullable', 'integer', 'numeric']
         ];
     }
 }

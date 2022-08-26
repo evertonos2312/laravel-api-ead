@@ -1,21 +1,14 @@
 <?php
 
-use App\Http\Controllers\Api\{
-    CourseController,
-    ModuleController
-};
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\{CourseController, ModuleController, SubmoduleController};
 use Illuminate\Support\Facades\Route;
 
-Route::get('/courses', [CourseController::class, 'index']);
-Route::get('/courses/{identify}', [CourseController::class, 'show']);
+Route::apiResource('/courses', CourseController::class);
+Route::apiResource('/modules/{module}/submodules', SubmoduleController::class);
+Route::apiResource('/modules', ModuleController::class);
 
-Route::get('/modules', [ModuleController::class, 'index']);
-Route::post('/modules', [ModuleController::class, 'store']);
-Route::get('/modules/{identify}', [ModuleController::class, 'show']);
-
-//Route::get('/', function () {
-//    return response()->json([
-//        'success' => true
-//    ]);
-//});
+Route::get('/', function () {
+    return response()->json([
+        'success' => true
+    ]);
+});

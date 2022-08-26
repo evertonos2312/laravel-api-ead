@@ -15,7 +15,7 @@ class ModuleService
 
     public function getModules()
     {
-        return $this->repository->getAllCourses();
+        return $this->repository->getAllModules();
     }
 
     public function createNewModule(array $data)

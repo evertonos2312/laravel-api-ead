@@ -13,7 +13,7 @@ class StoreUpdateCourse extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class StoreUpdateCourse extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => ['required', 'min:3', 'max:255'],
+            'categoria' => ['nullable', 'exists:modules,uuid'],
+            'subcategoria' => ['nullable', 'exists:submodules,uuid'],
+            'tipo' => ['nullable', 'min:2', 'max:255'],
+            'destaque' => ['nullable', 'boolean'],
+            'especializacao' => ['nullable', 'boolean'],
+            'id_mp' => ['nullable', 'integer', 'numeric']
         ];
     }
 }

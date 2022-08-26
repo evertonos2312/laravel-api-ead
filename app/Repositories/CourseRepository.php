@@ -26,25 +26,21 @@ class CourseRepository
         return $this->entity->create($data);
     }
 
-    public function getCourseByUuid(string $identify, bool $loadRelationships = false)
+    public function getCourseByUuid(string $identify)
     {
-        $query =  $this->entity->where('uuid', $identify);
-        if($loadRelationships) {
-            $query->with('modules.lessons');
-        }
-        return $query->firstOrFail();
+        return $this->entity->where('uuid', $identify)->FirstOrFail();
     }
 
     public function deleteCourseByUuid(string $identify)
     {
-        $course =  $this->getCourseByUuid($identify, false);
+        $course =  $this->getCourseByUuid($identify);
         Cache::forget('courses');
         return $course->delete();
     }
 
     public function updateCourseByUuid(string $identify, array $data)
     {
-        $course =  $this->getCourseByUuid($identify, false);
+        $course =  $this->getCourseByUuid($identify);
         Cache::forget('courses');
         return $course->update($data);
     }

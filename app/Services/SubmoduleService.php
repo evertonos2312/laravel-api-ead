@@ -2,39 +2,48 @@
 
 namespace App\Services;
 
-use App\Repositories\CourseRepository;
+use App\Repositories\ModuleRepository;
+use App\Repositories\SubmoduleRepository;
 
 class SubmoduleService
 {
-    protected $repository;
+    protected $submoduleRepository;
+    protected $moduleRepository;
 
-    public function __construct(CourseRepository $repository)
-    {
-        $this->repository = $repository;
+    public function __construct(
+        SubmoduleRepository $submoduleRepository,
+        ModuleRepository $moduleRepository
+    ) {
+        $this->submoduleRepository = $submoduleRepository;
+        $this->moduleRepository = $moduleRepository;
     }
 
-    public function getCourses()
+    public function getSubmodulesByModule(string $module)
     {
-        return $this->repository->getAllCourses();
+        $module = $this->moduleRepository->getModuleByUuid($module);
+        return $this->submoduleRepository->getSubmodulesModule($module->id);
     }
 
-    public function createNewCourse(array $data)
+    public function createNewSubmodule(array $data)
     {
-        return $this->repository->createNewCourse($data);
+        $module = $this->moduleRepository->getModuleByUuid($data['module']);
+        return $this->submoduleRepository->createNewSubmodule($module->id, $data);
     }
 
-    public function getCourse(string $identify)
+    public function getSubmoduleByModule(string $module, string $identify)
     {
-        return $this->repository->getCourseByUuid($identify);
+        $module = $this->moduleRepository->getModuleByUuid($module);
+        return $this->submoduleRepository->getSubmoduleByModule($module->id, $identify);
     }
 
-    public function deleteCourse(string $identify)
+    public function updateSubmodule(string $identify, array $data)
     {
-        return $this->repository->deleteCourseByUuid($identify);
+        $module = $this->moduleRepository->getModuleByUuid($data['module']);
+        return $this->submoduleRepository->updateSubmoduleByUuid($module->id, $identify, $data);
     }
 
-    public function updateCourse(string $identify, array $data)
+    public function deleteSubmodule(string $identify)
     {
-        return $this->repository->updateCourseByUuid($identify, $data);
+        return $this->submoduleRepository->deleteSubmoduleByUuid($identify);
     }
 }

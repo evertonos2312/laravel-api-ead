@@ -15,9 +15,9 @@ class ModuleRepository
         $this->entity = $module;
     }
 
-    public function getAllCourses()
+    public function getAllModules()
     {
-            return $this->entity->get();
+            return $this->entity->with('submodules')->get();
 //        return Cache::remember('courses', 900, function () {
 //        });
     }
@@ -27,11 +27,11 @@ class ModuleRepository
         return $this->entity->create($data);
     }
 
-    public function getModuleByUuid(string $identify, bool $loadRelationships = false)
+    public function getModuleByUuid(string $identify, bool $loadRelationships = true)
     {
         $query =  $this->entity->where('uuid', $identify);
         if($loadRelationships) {
-            $query->with('modules.lessons');
+            $query->with('submodules');
         }
         return $query->firstOrFail();
     }
