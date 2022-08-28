@@ -19,9 +19,14 @@ class Support extends Model
         'C' => 'Finalizado'
     ];
 
-    public function lessons()
+    public function lesson()
     {
         return $this->belongsTo(Lesson::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 

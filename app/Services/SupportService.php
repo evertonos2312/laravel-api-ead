@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Repositories\ModuleRepository;
-use App\Repositories\SubmoduleRepository;
 use App\Repositories\SupportRepository;
 
 class SupportService
@@ -16,9 +14,9 @@ class SupportService
         $this->supportRepository = $supportRepository;
     }
 
-    public function getSupports()
+    public function getSupports(array $filters = [])
     {
-        return $this->supportRepository->getAllSupports();
+        return $this->supportRepository->getAllSupports($filters);
     }
 
     public function createNewSubmodule(array $data)

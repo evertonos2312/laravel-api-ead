@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Module;
 use App\Models\Submodule;
 use App\Models\Support;
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
 class SupportRepository
@@ -17,9 +18,27 @@ class SupportRepository
         $this->entity = $support;
     }
 
-    public function getAllSupports()
+    private function getUserAuth() :User
     {
-        return $this->entity->get();
+//        return auth()->user();
+        return User::first();
+    }
+
+    public function getAllSupports(array $filters = [])
+    {
+        return $this->getUserAuth()->supports()
+            ->where(function ($query) use ($filters){
+                if(isset($filters['lesson'])){
+                    $query->where('lesson_id', $filters['lesson']);
+                }
+                if(isset($filters['status'])){
+                    $query->where('status', $filters['status']);
+                }
+                if(isset($filters['filter'])){
+                    $filter = $filters['filter'];
+                    $query->where('description', 'LIKE', "%{$filter}%");
+                }
+            })->get();
     }
 
     public function createNewSubmodule(int $moduleId, array $data)
