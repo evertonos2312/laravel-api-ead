@@ -29,6 +29,17 @@ class SupportController extends Controller
         return SupportResource::collection($support);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function userSupports(Request $request)
+    {
+        $support = $this->supportService->getUserSupports($request->all());
+        return SupportResource::collection($support);
+    }
+
     public function store(StoreSupport $request)
     {
         $support = $this->supportService->createNewSupport($request->validated());

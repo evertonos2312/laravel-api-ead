@@ -23,4 +23,9 @@ class SupportService
     {
         return $this->supportRepository->createNewSupport($data);
     }
+
+    public function getUserSupports(array $filters = [])
+    {
+        return $this->supportRepository->getSupportsByUserAuth($filters);
+    }
 }

@@ -21,9 +21,9 @@ class ReplySupportController extends Controller
      *
      * @return ReplySupportResource
      */
-    public function createReply(StoreReplySupport $request, $supportId): ReplySupportResource
+    public function createReply(StoreReplySupport $request): ReplySupportResource
     {
-        $reply = $this->replySupportService->createReplyToSupport($supportId, $request->validated());
+        $reply = $this->replySupportService->createReplyToSupport($request->validated());
         return new ReplySupportResource($reply);
     }
 

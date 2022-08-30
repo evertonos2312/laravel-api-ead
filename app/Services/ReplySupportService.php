@@ -13,9 +13,9 @@ class ReplySupportService
         $this->replySupportRepository = $replySupportRepository;
     }
 
-    public function createReplyToSupport(string $supportId, $data)
+    public function createReplyToSupport($data)
     {
-        return $this->replySupportRepository->createReplyBySupportId($supportId,$data);
+        return $this->replySupportRepository->createReplyBySupportId($data);
     }
 
 }

@@ -7,10 +7,13 @@ use App\Models\Module;
 use App\Models\Submodule;
 use App\Models\Support;
 use App\Models\User;
+use App\Repositories\Traits\RepositoryTrait;
 use Illuminate\Support\Facades\Cache;
 
 class SupportRepository
 {
+    use RepositoryTrait;
+
     protected $entity;
 
     public function __construct(Support $support)
@@ -18,15 +21,15 @@ class SupportRepository
         $this->entity = $support;
     }
 
-    private function getUserAuth() :User
+    public function getSupportsByUserAuth(array $filters = [])
     {
-//        return auth()->user();
-        return User::first();
+        $filters['user'] = true;
+        return $this->getAllSupports($filters);
     }
 
     public function getAllSupports(array $filters = [])
     {
-        return $this->getUserAuth()->supports()
+        return $this->entity
             ->where(function ($query) use ($filters){
                 if(isset($filters['lesson'])){
                     $query->where('lesson_id', $filters['lesson']);
@@ -38,7 +41,11 @@ class SupportRepository
                     $filter = $filters['filter'];
                     $query->where('description', 'LIKE', "%{$filter}%");
                 }
-            })->get();
+                if(isset($filters['user'])){
+                    $user = $this->getUserAuth();
+                    $query->where('user_id', $user->id);
+                }
+            })->orderByDesc('updated_at')->get();
     }
 
     public function createNewSupport(array $data)
@@ -49,6 +56,5 @@ class SupportRepository
             'description' => $data['description'],
         ]);
     }
-
 
 }
