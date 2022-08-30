@@ -11,6 +11,9 @@ class Lesson extends Model
 {
     use HasFactory, SoftDeletes, UuidTrait;
 
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'nome', 'status',
         'course_id', 'imagem', 'link',

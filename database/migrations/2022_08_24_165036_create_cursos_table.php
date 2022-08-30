@@ -14,11 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->uuid();
+            $table->uuid('id')->primary();
             $table->string('nome');
-            $table->string('module')->nullable();
-            $table->string('submodule')->nullable();
+            $table->uuid('module')->nullable();
+            $table->uuid('submodule')->nullable();
             $table->string('tipo')->nullable();
             $table->boolean('destaque')->default(false);
             $table->boolean('especializacao')->default(false);

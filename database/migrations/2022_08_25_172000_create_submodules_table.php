@@ -14,10 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('submodules', function (Blueprint $table) {
-            $table->id();
-            $table->uuid();
+            $table->uuid('id')->primary();
             $table->string('nome');
-            $table->foreignId('module_id')->constrained('modules');
+            $table->uuid('module_id')->nullable(false);
             $table->boolean('status')->default(0);
             $table->integer('id_mp')->nullable();
             $table->string('usuario_modificado')->nullable();

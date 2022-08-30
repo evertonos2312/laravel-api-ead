@@ -16,36 +16,36 @@ class SubmoduleRepository
         $this->entity = $submodule;
     }
 
-    public function getSubmodulesModule(int $moduleId)
+    public function getSubmodulesModule(string $moduleId)
     {
         return $this->entity
             ->where('module_id', $moduleId)
             ->get();
     }
 
-    public function createNewSubmodule(int $moduleId, array $data)
+    public function createNewSubmodule(string $moduleId, array $data)
     {
         $data['module_id'] = $moduleId;
         Cache::forget('courses');
         return $this->entity->create($data);
     }
 
-    public function getSubmoduleByModule(int $moduleId, string $identify)
+    public function getSubmoduleByModule(string $moduleId, string $identify)
     {
         return $this->entity
             ->where('module_id', $moduleId)
-            ->where('uuid', $identify)
+            ->where('id', $identify)
             ->firstOrfail();
     }
 
     public function getSubmoduleByUuid(string $identify)
     {
         return $this->entity
-            ->where('uuid', $identify)
+            ->where('id', $identify)
             ->firstOrfail();
     }
 
-    public function updateSubmoduleByUuid(int $moduleId, string $identify, array $data)
+    public function updateSubmoduleByUuid(string $moduleId, string $identify, array $data)
     {
         $submodule = $this->getSubmoduleByUuid($identify);
         $data['module_id'] = $moduleId;

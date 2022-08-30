@@ -14,10 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('lessons', function (Blueprint $table) {
-            $table->id();
-            $table->uuid();
+            $table->uuid('id')->primary();
             $table->boolean('status')->default(0);
-            $table->foreignId('course_id')->constrained('courses');
+            $table->uuid('course_id')->nullable(false);
             $table->string('imagem')->nullable();
             $table->string('link')->nullable();
             $table->dateTime('inicio');

@@ -18,7 +18,7 @@ class ModuleResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'identify' => $this->uuid,
+            'identify' => $this->id,
             'nome' => $this->nome,
             'id_mp' => $this->id_mp,
             'status' => $this->status ? 'active' : 'inactive',

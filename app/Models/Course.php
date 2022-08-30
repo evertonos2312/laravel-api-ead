@@ -13,6 +13,9 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes, UuidTrait;
 
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'nome', 'categoria',
         'subcategoria', 'tipo', 'destaque',

@@ -11,6 +11,9 @@ class Submodule extends Model
 {
     use HasFactory, SoftDeletes, UuidTrait;
 
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'nome', 'module_id', 'status',
         'id_mp', 'usuario_modificado'

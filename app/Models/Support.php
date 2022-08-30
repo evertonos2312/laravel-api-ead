@@ -11,7 +11,10 @@ class Support extends Model
 {
     use HasFactory, UuidTrait, SoftDeletes;
 
-    protected $fillable = ['status', 'description'];
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
+    protected $fillable = ['status', 'description', 'lesson_id'];
 
     public $statusOptions = [
         'P' => 'Pendente, aguardando professor',
@@ -27,6 +30,11 @@ class Support extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(ReplySupport::class);
     }
 
 

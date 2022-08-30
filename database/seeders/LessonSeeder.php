@@ -23,7 +23,7 @@ class LessonSeeder extends Seeder
         $courses = Course::limit(500)->get();
         if(!empty($courses)){
             foreach ($courses as $course) {
-                for ($i = 1; $i < 100; $i ++) {
+                for ($i = 1; $i < 5; $i ++) {
                 Lesson::create([
                     'course_id' => $course->id,
                     'inicio' =>  $faker->dateTimeBetween('now', '+1 month'),

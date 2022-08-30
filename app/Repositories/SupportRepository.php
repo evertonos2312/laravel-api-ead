@@ -41,40 +41,14 @@ class SupportRepository
             })->get();
     }
 
-    public function createNewSubmodule(int $moduleId, array $data)
+    public function createNewSupport(array $data)
     {
-        $data['module_id'] = $moduleId;
-        Cache::forget('courses');
-        return $this->entity->create($data);
+        return $this->getUserAuth()->supports()->create([
+            'lesson_id' => $data['lesson'],
+            'status' => $data['status'],
+            'description' => $data['description'],
+        ]);
     }
 
-    public function getSubmoduleByModule(int $moduleId, string $identify)
-    {
-        return $this->entity
-            ->where('module_id', $moduleId)
-            ->where('uuid', $identify)
-            ->firstOrfail();
-    }
 
-    public function getSubmoduleByUuid(string $identify)
-    {
-        return $this->entity
-            ->where('uuid', $identify)
-            ->firstOrfail();
-    }
-
-    public function updateSubmoduleByUuid(int $moduleId, string $identify, array $data)
-    {
-        $submodule = $this->getSubmoduleByUuid($identify);
-        $data['module_id'] = $moduleId;
-        Cache::forget('courses');
-        return $submodule->update($data);
-    }
-
-    public function deleteSubmoduleByUuid(string $identify)
-    {
-        $submodule = $this->getSubmoduleByUuid($identify);
-        Cache::forget('courses');
-        return $submodule->delete();
-    }
 }

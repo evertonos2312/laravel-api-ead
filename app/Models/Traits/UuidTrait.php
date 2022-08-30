@@ -9,7 +9,7 @@ trait UuidTrait
     public static function booted()
     {
         static::creating(function ($model) {
-            $model->uuid = (String) Str::uuid();
+            $model->{$model->getKeyName()} = (String) Str::uuid();
         });
     }
 }

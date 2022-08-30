@@ -31,7 +31,7 @@ class CourseRepository
 
     public function getCourseByUuid(string $identify, bool $loadRelationships = true)
     {
-        $query =  $this->entity->where('uuid', $identify);
+        $query =  $this->entity->where('id', $identify);
         if($loadRelationships) {
             $query->with('lessons');
         }

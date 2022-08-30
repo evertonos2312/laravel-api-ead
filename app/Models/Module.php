@@ -11,6 +11,9 @@ class Module extends Model
 {
     use HasFactory, UuidTrait, SoftDeletes;
 
+    public $incrementing = false;
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'nome', 'status',
         'id_mp', 'usuario_modificado'

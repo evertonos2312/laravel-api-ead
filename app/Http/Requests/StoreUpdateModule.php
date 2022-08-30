@@ -23,9 +23,9 @@ class StoreUpdateModule extends FormRequest
      */
     public function rules()
     {
-        $uuid = $this->module ?? '';
+        $id = $this->module ?? '';
         return [
-            'nome' => ['required', 'min:3', 'max:255', "unique:modules,nome,{$uuid},uuid"],
+            'nome' => ['required', 'min:3', 'max:255', "unique:modules,nome,{$id},id"],
             'status' => ['nullable', 'boolean'],
             'id_mp' => ['nullable', 'integer', 'numeric']
         ];

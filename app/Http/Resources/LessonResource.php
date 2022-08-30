@@ -18,7 +18,7 @@ class LessonResource extends JsonResource
     {
         $max_cancelamento = $this->max_cancelamento ? Carbon::createFromFormat('Y-m-d H:i:s',$this->max_cancelamento)->format(' d/m/Y H:i') : null;
         return [
-            'identify' => $this->uuid,
+            'identify' => $this->id,
             'status' => $this->status ? 'ativo' : 'inativo',
             'imagem' => $this->imagem,
             'link' => $this->link,

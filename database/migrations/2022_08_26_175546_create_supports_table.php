@@ -14,10 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('supports', function (Blueprint $table) {
-            $table->id();
-            $table->uuid();
-            $table->uuid('user_id');
-            $table->foreignId('lesson_id')->constrained('lessons');
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->nullable(false);
+            $table->uuid('lesson_id')->nullable(false);
             $table->enum('status', ['P', 'A', 'C'])->default('P'); //P = Pendente, A = Aberto, C = Concluido
             $table->text('description');
             $table->softDeletes();

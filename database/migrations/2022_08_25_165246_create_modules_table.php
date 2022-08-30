@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modules', function (Blueprint $table) {
-            $table->id();
-            $table->uuid();
+            $table->uuid('id')->primary();
             $table->string('nome');
             $table->boolean('status')->default(0);
             $table->integer('id_mp')->nullable();

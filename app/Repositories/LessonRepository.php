@@ -18,7 +18,7 @@ class LessonRepository
         $this->entity = $lesson;
     }
 
-    public function getLessonsCourse(int $courseId)
+    public function getLessonsCourse(string $courseId)
     {
         return $this->entity
             ->where('course_id', $courseId)
@@ -26,7 +26,7 @@ class LessonRepository
 
     }
 
-    public function createNewLesson(int $courseId, array $data)
+    public function createNewLesson(string $courseId, array $data)
     {
         if(isset($data['max_cancelamento'])) {
             $data['max_cancelamento'] = Carbon::createFromFormat('d/m/Y H:i',$data['max_cancelamento'])->format('Y-m-d H:i:s') ;
@@ -38,22 +38,22 @@ class LessonRepository
         return $this->entity->create($data);
     }
 
-    public function getLessonByCourse(int $courseId, string $identify)
+    public function getLessonByCourse(string $courseId, string $identify)
     {
         return $this->entity
             ->where('course_id', $courseId)
-            ->where('uuid', $identify)
+            ->where('id', $identify)
             ->firstOrfail();
     }
 
     public function getLessonByUuid(string $identify)
     {
         return $this->entity
-            ->where('uuid', $identify)
+            ->where('id', $identify)
             ->firstOrfail();
     }
 
-    public function updateLessonByUuid(int $courseId, string $identify, array $data)
+    public function updateLessonByUuid(string $courseId, string $identify, array $data)
     {
         $lesson = $this->getLessonByUuid($identify);
         $data['course_id'] = $courseId;
