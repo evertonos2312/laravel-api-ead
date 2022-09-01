@@ -3,14 +3,21 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Traits\UuidTrait;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, UuidTrait, SoftDeletes;
+
+    public $incrementing = false;
+    protected $keyType = 'uuid';
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +28,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'status',
+        'is_admin'
     ];
 
     /**
@@ -41,4 +50,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function supports()
+    {
+        return $this->hasMany(Support::class);
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
 }
