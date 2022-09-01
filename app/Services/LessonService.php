@@ -46,4 +46,9 @@ class LessonService
     {
         return $this->lessonRepository->deleteLessonByUuid($identify);
     }
+
+    public function LessonViewed(string $identify)
+    {
+        return $this->lessonRepository->markLessonViewed($identify);
+    }
 }

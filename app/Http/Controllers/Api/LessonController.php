@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateLesson;
 use App\Http\Requests\StoreUpdateSubmodule;
+use App\Http\Requests\StoreView;
 use App\Http\Resources\LessonResource;
 use App\Services\LessonService;
 use Illuminate\Http\JsonResponse;
@@ -79,5 +80,11 @@ class LessonController extends Controller
     {
         $this->lessonService->deleteLesson($identify);
         return response()->json([], 204);
+    }
+
+    public function markLessonViewed(StoreView $request):JsonResponse
+    {
+        $this->lessonService->LessonViewed($request->lesson);
+        return response()->json(['success' => true]);
     }
 }

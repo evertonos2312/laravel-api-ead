@@ -6,11 +6,15 @@ use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
 use App\Models\Submodule;
+use App\Models\View;
+use App\Repositories\Traits\RepositoryTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class LessonRepository
 {
+    use RepositoryTrait;
+
     protected $entity;
 
     public function __construct(Lesson $lesson)
@@ -66,5 +70,19 @@ class LessonRepository
         $lesson = $this->getLessonByUuid($identify);
         Cache::forget('courses');
         return $lesson->delete();
+    }
+
+    public function markLessonViewed(string $identify)
+    {
+        $user = $this->getUserAuth();
+        $view = $user->views()->where('lesson_id', $identify)->first();
+        if($view){
+            return $view->update([
+                'qty' => $view->qty +1
+            ]);
+        }
+        return $user->views()->create([
+            'lesson_id' => $identify
+        ]);
     }
 }

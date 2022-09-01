@@ -4,9 +4,9 @@
 use App\Http\Controllers\Api\Auth\{
     AuthController,
     ResetPasswordController};
-use App\Http\Controllers\Api\{
-    CourseController,
+use App\Http\Controllers\Api\{CourseController,
     LessonController,
+    LessonViewedController,
     ModuleController,
     ReplySupportController,
     SubmoduleController,
@@ -20,6 +20,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/courses/{course}/lessons', LessonController::class);
+    Route::post('/lesson/view', [LessonController::class, 'markLessonViewed']);
     Route::apiResource('/courses', CourseController::class);
     Route::apiResource('/modules/{module}/submodules', SubmoduleController::class);
     Route::apiResource('/modules', ModuleController::class);
@@ -31,6 +32,6 @@ Route::middleware(['auth:sanctum'])->group(function (){
 
 Route::get('/', function () {
     return response()->json([
-        'success' => true
+        'success' => false
     ]);
 });

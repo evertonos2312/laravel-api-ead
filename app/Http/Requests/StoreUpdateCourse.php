@@ -25,8 +25,8 @@ class StoreUpdateCourse extends FormRequest
     {
         return [
             'nome' => ['required', 'min:3', 'max:255'],
-            'categoria' => ['nullable', 'exists:modules,uuid'],
-            'subcategoria' => ['nullable', 'exists:submodules,uuid'],
+            'categoria' => ['nullable', 'exists:modules,id'],
+            'subcategoria' => ['nullable', 'exists:submodules,id'],
             'tipo' => ['nullable', 'min:2', 'max:255'],
             'destaque' => ['nullable', 'boolean'],
             'especializacao' => ['nullable', 'boolean'],

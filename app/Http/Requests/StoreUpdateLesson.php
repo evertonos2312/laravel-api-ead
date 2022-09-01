@@ -24,7 +24,7 @@ class StoreUpdateLesson extends FormRequest
     public function rules()
     {
         return [
-            'course' => ['required', 'exists:courses,uuid'],
+            'course' => ['required', 'exists:courses,id'],
             'status' => ['nullable', 'boolean'],
             'imagem' => ['nullable', 'min:3', 'max:255'],
             'inicio' => ['required', 'date_format:d/m/Y H:i'],
