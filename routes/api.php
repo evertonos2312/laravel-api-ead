@@ -6,7 +6,6 @@ use App\Http\Controllers\Api\Auth\{
     ResetPasswordController};
 use App\Http\Controllers\Api\{CourseController,
     LessonController,
-    LessonViewedController,
     ModuleController,
     ReplySupportController,
     SubmoduleController,

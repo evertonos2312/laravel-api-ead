@@ -20,7 +20,7 @@ class LessonSeeder extends Seeder
     {
 
         $faker = Factory::create();
-        $courses = Course::limit(500)->get();
+        $courses = Course::limit(100)->get();
         if(!empty($courses)){
             foreach ($courses as $course) {
                 for ($i = 1; $i < 5; $i ++) {
